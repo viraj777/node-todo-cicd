@@ -1,8 +1,7 @@
-FROM ubuntu
+FROM node
 WORKDIR app
 ADD . /app
-RUN apt install nodejs 
-RUN apt install npm
 RUN npm install
+EXPOSE 8000
 ENTRYPOINT ["node","app.js"]
 
