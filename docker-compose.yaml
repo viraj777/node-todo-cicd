@@ -5,11 +5,15 @@ services:
     image: virajthorat776/node-todo-app
     ports:
       - "8001:8000"
-    replicas: 2
+    deploy:
+     - mode: replicated
+     - replicas: 2
 
   database:
     container_name: db
     image: mysql
-    replicas: 2
+    deploy:
+     - mode: replicated
+     - replicas: 2
     env_file:
       - .env
