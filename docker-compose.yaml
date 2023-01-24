@@ -6,14 +6,14 @@ services:
     ports:
       - "8001:8000"
     deploy:
-     - mode: replicated
-     - replicas: 2
+       mode: replicated
+       replicas: 2
 
   database:
     container_name: db
     image: mysql
     deploy:
-     - mode: replicated
-     - replicas: 2
+       mode: replicated
+       replicas: 2
     env_file:
       - .env
