@@ -6,9 +6,8 @@ services:
     ports:
       - "8001:8000"
 
-  databse:
+  database:
     container_name: db
     image: mysql
-    ports:
-      - "3306"
-
+    env_file:
+      - .env
