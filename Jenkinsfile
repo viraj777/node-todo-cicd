@@ -1,12 +1,12 @@
 pipeline{
 
-    agents any
+    agent any
 
     stages {
 
 	stage("clone_repo") {
 
-	step {
+	steps {
 
 	git branch: 'master', url: 'https://github.com/viraj777/node-todo-cicd.git'
 
@@ -16,7 +16,7 @@ pipeline{
 
         stage("build_image") {
 
-	step {
+	steps {
 
 	sh "docker build . -t virajthorat776/node-todo-app"
 
@@ -26,7 +26,7 @@ pipeline{
 
 	stage("push_image") {
 
-	step {
+	steps {
 
           withCredentials([usernamePassword(credentialsId: 'Dockerhub_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
 
@@ -40,9 +40,11 @@ pipeline{
 
         stage("build") {
 
+        steps {
          sh "docker-compose down --remove-orphans && docker-compose up -d"
-
+         
          }
-       }
+        }
+      }
 
-     }
+    }
