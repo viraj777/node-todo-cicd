@@ -3,7 +3,7 @@ services:
   backend:
     image: virajthorat776/node-todo-app
     ports:
-      - "8001:8000"
+      - "8001-8004:8000"
     deploy:
        mode: replicated
        replicas: 2
