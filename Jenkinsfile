@@ -2,7 +2,7 @@ pipeline{
 
 	agent {
 		
-		label ('agent1 && agent2')
+		label 'agent1' , 'agent2'
 		
 	}
 
