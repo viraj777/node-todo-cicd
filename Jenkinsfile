@@ -1,11 +1,13 @@
 pipeline{
 
-      agent { label 'agents' }
+      agent none
 
     stages {
 
 	stage("clone_repo") {
-
+		
+		agent { label 'agent2' }
+		
 	steps {
 
 	git branch: 'master', url: 'https://github.com/viraj777/node-todo-cicd.git'
@@ -16,6 +18,8 @@ pipeline{
 
         stage("build_image") {
 
+		agent { label 'agent2' }
+		
 	steps {
 
 	sh "docker build . -t virajthorat776/node-todo-app"
@@ -26,6 +30,8 @@ pipeline{
 
 	stage("push_image") {
 
+		agent { label 'agent2' }
+		
 	steps {
 
           withCredentials([usernamePassword(credentialsId: 'Dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
@@ -40,6 +46,8 @@ pipeline{
 
         stage("build") {
 
+		agent { label 'agent2' }
+		
         steps {
          sh "docker stack deploy -c docker-compose.yaml final_stack"
          
