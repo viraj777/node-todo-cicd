@@ -8,7 +8,7 @@ pipeline{
 
 	step {
 
-	git branch master, url: 'https://github.com/viraj777/node-todo-cicd.git'
+	git branch: 'master', url: 'https://github.com/viraj777/node-todo-cicd.git'
 
         }
 
