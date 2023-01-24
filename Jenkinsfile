@@ -32,7 +32,7 @@ pipeline{
 
 	steps {
 
-          withCredentials([usernamePassword(credentialsId: 'Dockerhub_login', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+          withCredentials([usernamePassword(credentialsId: 'Dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
 
           sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD}"
 
