@@ -1,7 +1,9 @@
 pipeline{
 
-      agent 'agents'
-
+	agent {
+		
+		label 'agents'
+	}
     stages {
 
 	stage("clone_repo") {
