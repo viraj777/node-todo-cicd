@@ -1,12 +1,10 @@
 pipeline{
 
-      agent none
+      agent 'agents'
 
     stages {
 
 	stage("clone_repo") {
-		
-		agent { label 'agent2' }
 		
 	steps {
 
@@ -16,9 +14,7 @@ pipeline{
 
       }
 
-        stage("build_image") {
-
-		agent { label 'agent2' }
+        stage("build_image") 
 		
 	steps {
 
@@ -29,8 +25,6 @@ pipeline{
       }
 
 	stage("push_image") {
-
-		agent { label 'agent2' }
 		
 	steps {
 
@@ -44,12 +38,10 @@ pipeline{
          }
        }
 
-        stage("build") {
-
-		agent { label 'agent2' }
+	stage("build") {
 		
         steps {
-         sh "docker stack deploy -c docker-compose.yaml final_stack"
+         sh "docker compose down && docker compose up -d"
          
          }
         }
