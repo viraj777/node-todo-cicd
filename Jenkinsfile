@@ -14,7 +14,7 @@ pipeline{
 
       }
 
-        stage("build_image") 
+	stage("build_image") { 
 		
 	steps {
 
