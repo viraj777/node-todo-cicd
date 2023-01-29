@@ -43,7 +43,7 @@ pipeline{
 	stage("build") {
 		
         steps {
-         sh "docker compose down && docker compose up -d"
+         sh "docker stack deploy -c docker-compose.yaml final_stack"
          
          }
         }
