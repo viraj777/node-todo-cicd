@@ -1,14 +1,6 @@
 pipeline{
 
-	agent {
-		
-		node {
-		
-		   label 'agents'
-			
-		}	
-	}
-    stages {
+	node('agents'){
 
 	stage("clone_repo") {
 		
