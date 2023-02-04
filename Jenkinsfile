@@ -43,7 +43,7 @@ pipeline{
 	stage("build") {
 		
         steps {
-         sh "docker stack deploy -c docker-compose.yaml final_stack"
+         sh "docker-compose down --remove-orphans && docker-compose up -d"
          
          }
         }
