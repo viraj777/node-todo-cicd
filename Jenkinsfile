@@ -1,48 +1,46 @@
-pipeline{
+def agents  = ['agents']
+ 
+def generateStage(nodeLabel) {
+    return {
+        stage("Runs on ${nodeLabel}") {
+            node(nodeLabel) {
+               script {
+		    echo "Stage 1: Cloning repo"
+                    git branch: 'master', url: 'https://github.com/viraj777/node-todo-cicd.git'
 
-	node('agents'){
+		    echo "Stage 2: Building docker image"
+		    sh "docker build . -t virajthorat776/node-todo-app"
 
-	stage("clone_repo") {
-		
-	steps {
+		    echo "Stage 3: pushing image to dockerhub"
+		    withCredentials([usernamePassword(credentialsId: 'Dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+                    sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD}"
+                    sh "docker push virajthorat776/node-todo-app"
 
-	git branch: 'master', url: 'https://github.com/viraj777/node-todo-cicd.git'
-
+		    echo "Stage 4: Deploying docker image as container"
+		    sh "docker-compose down --remove-orphans && docker-compose up -d"
+		    
+                }
+            }
         }
-
-      }
-
-	stage("build_image") { 
-		
-	steps {
-
-	sh "docker build . -t virajthorat776/node-todo-app"
-
-	}
-
-      }
-
-	stage("push_image") {
-		
-	steps {
-
-          withCredentials([usernamePassword(credentialsId: 'Dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
-
-          sh "docker login -u ${env.USERNAME} -p ${env.PASSWORD}"
-
-          sh "docker push virajthorat776/node-todo-app"
-
-          }
-         }
-       }
-
-	stage("build") {
-		
-        steps {
-         sh "docker-compose down --remove-orphans && docker-compose up -d"
-         
-         }
-        }
-      }
-
     }
+}
+def parallelStagesMap = agents.collectEntries {
+    ["${it}" : generateStage(it)]
+}
+pipeline {
+    agent none
+    stages {
+        stage('non-parallel stage') {
+            steps {
+                echo 'This stage will be executed first.'
+            }
+        }
+        stage('parallel stage') {
+            steps {
+                script {
+                    parallel parallelStagesMap
+                }
+            }
+        }       
+    }
+}
