@@ -1,4 +1,4 @@
-def agents  = ['agents']
+def agents  = ['agent-1','agent-2']
  
 def generateStage(nodeLabel) {
     return {
