@@ -23,6 +23,7 @@ def generateStage(nodeLabel) {
             }
         }
     }
+  }
 }
 def parallelStagesMap = agents.collectEntries {
     ["${it}" : generateStage(it)]
