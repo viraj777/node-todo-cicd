@@ -5,6 +5,9 @@ def generateStage(nodeLabel) {
         stage("Runs on ${nodeLabel}") {
             node(nodeLabel) {
                script {
+                    echo "disabling TLS certificate checking against repo."
+                    git([url: 'https://github.com/viraj777/node-todo-cicd.git', branch: 'master', disableCertificateValidation: true])
+
 		    echo "Stage 1: Cloning repo"
                     git branch: 'master', url: 'https://github.com/viraj777/node-todo-cicd.git'
 
