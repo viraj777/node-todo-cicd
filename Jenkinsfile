@@ -36,7 +36,7 @@ pipeline {
     stages {
         stage('non-parallel stage') {
             steps {
-                echo 'this stage will be executed First.'
+                echo 'This stage will be executed First.'
             }
         }
         stage('parallel stage') {
