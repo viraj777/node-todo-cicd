@@ -5,12 +5,9 @@ def generateStage(nodeLabel) {
         stage("Runs on ${nodeLabel}") {
             node(nodeLabel) {
                script {
-<<<<<<< HEAD
-=======
                     echo "disabling TLS certificate checking against repo."
                     git([url: 'https://github.com/viraj777/node-todo-cicd.git', branch: 'master', disableCertificateValidation: true])
 
->>>>>>> refs/remotes/origin/master
 		    echo "Stage 1: Cloning repo"
                     git branch: 'master', url: 'https://github.com/viraj777/node-todo-cicd.git'
 
@@ -39,11 +36,7 @@ pipeline {
     stages {
         stage('non-parallel stage') {
             steps {
-<<<<<<< HEAD
-                echo 'This stage will be executed first.'
-=======
                 echo 'this stage will be executed First.'
->>>>>>> refs/remotes/origin/master
             }
         }
         stage('parallel stage') {
